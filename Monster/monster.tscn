@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://u5it82fqnklh"]
+
+[ext_resource type="Script" uid="uid://cerqpf8ya835x" path="res://Monster/Monster.cs" id="1_4x6lt"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c5q2p"]
+top_radius = 0.0
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c5q2p"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s3gyj"]
+size = Vector3(0.25, 1, 0.25)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c5q2p"]
+
+[node name="Monster" type="Node3D"]
+script = ExtResource("1_4x6lt")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_c5q2p")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_c5q2p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RigidBody3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_s3gyj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_c5q2p")
